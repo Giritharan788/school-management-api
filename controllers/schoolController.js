@@ -1,7 +1,6 @@
 const db = require('../config/db');
 const { z } = require('zod');
 
-// Validation schema for adding a school
 const addSchoolSchema = z.object({
     name: z.string().min(1, 'Name is required').max(255),
     address: z.string().min(1, 'Address is required').max(500),
@@ -14,10 +13,8 @@ const listSchoolsSchema = z.object({
     longitude: z.coerce.number().min(-180).max(180)
 });
 
-// Add School Controller
 exports.addSchool = async (req, res) => {
     try {
-        // Validate request body
         const parsedData = addSchoolSchema.safeParse(req.body);
         if (!parsedData.success) {
             return res.status(400).json({
@@ -31,7 +28,6 @@ exports.addSchool = async (req, res) => {
 
         const { name, address, latitude, longitude } = parsedData.data;
 
-        // Insert into database
         const query = 'INSERT INTO schools (name, address, latitude, longitude) VALUES (?, ?, ?, ?)';
         const [result] = await db.execute(query, [name, address, latitude, longitude]);
 
@@ -46,10 +42,8 @@ exports.addSchool = async (req, res) => {
     }
 };
 
-// List Schools Controller
 exports.listSchools = async (req, res) => {
     try {
-        // Validate query parameters
         const parsedData = listSchoolsSchema.safeParse(req.query);
         if (!parsedData.success) {
             return res.status(400).json({
@@ -63,8 +57,7 @@ exports.listSchools = async (req, res) => {
 
         const { latitude: userLat, longitude: userLon } = parsedData.data;
 
-        // Haversine formula calculation in SQL to sort by distance
-        // The constant 6371 represents the Earth's radius in kilometers.
+        // Haversine formula - 6371 is Earth's radius in km
         const query = `
             SELECT id, name, address, latitude, longitude,
             (

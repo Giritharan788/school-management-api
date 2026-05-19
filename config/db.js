@@ -12,19 +12,16 @@ const pool = mysql.createPool({
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,
-    // Add SSL for cloud DBs (Aiven, Render, TiDB, etc.) if needed. 
-    // We can conditionally enable this based on the environment later.
     ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : undefined
 });
 
-// Test connection silently, errors will show if any issue
 pool.getConnection()
     .then(connection => {
         console.log('Successfully connected to the database!');
         connection.release();
     })
     .catch(err => {
-        console.error('Error connecting to the database. Ensure database is running and credentials are correct. Error details:', err.message);
+        console.error('Database connection failed:', err.message);
     });
 
 module.exports = pool;

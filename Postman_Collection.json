@@ -1,0 +1,69 @@
+{
+	"info": {
+		"_postman_id": "7a35c24e-b8d4-4a52-b88c-1e64627d3b08",
+		"name": "School Management API",
+		"description": "APIs for adding schools and fetching them based on proximity.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add School",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Greenwood High School\",\n  \"address\": \"123 Park Avenue, Cityville\",\n  \"latitude\": 12.9716,\n  \"longitude\": 77.5946\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/addSchool",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"addSchool"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Schools",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/listSchools?latitude=12.9716&longitude=77.5946",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"listSchools"
+					],
+					"query": [
+						{
+							"key": "latitude",
+							"value": "12.9716"
+						},
+						{
+							"key": "longitude",
+							"value": "77.5946"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

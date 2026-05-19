@@ -1,29 +1,18 @@
 # School Management API
 
-This is a Node.js API built with Express and MySQL for managing schools and finding the nearest ones.
+This is a Node.js and Express API for managing school data. It uses MySQL for the database and calculates geographical distance to find the closest schools to a user.
 
-## Setup Instructions
+## Live Links
+Base URL: https://school-management-api-2qpj.onrender.com
 
-1. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+* Add School: POST /api/addSchool 
+* List Schools: GET /api/listSchools?latitude=12.9716&longitude=77.5946
 
-2. **Database Setup:**
-   - Execute the SQL in `init.sql` in your MySQL database to create the table.
-   - Copy `.env.example` to `.env` and fill in your database credentials.
+## How to run locally
+1. Run `npm install`
+2. Add your MySQL credentials to a `.env` file
+3. Run `node migrate.js` to create the database table
+4. Run `npm start`
 
-3. **Start the server:**
-   ```bash
-   node index.js
-   ```
-
-## APIs
-
-1. **Add School**: `POST /api/addSchool`
-   - Body: `name`, `address`, `latitude`, `longitude`
-2. **List Schools**: `GET /api/listSchools?latitude=12.9716&longitude=77.5946`
-   - Returns a list of schools sorted by proximity.
-
-## Postman Testing
-Import `Postman_Collection.json` into Postman to test the endpoints.
+## Testing
+A Postman_Collection.json file is included in this repository. You can import it into Postman to test the APIs.
